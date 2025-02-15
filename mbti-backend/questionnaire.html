@@ -4,272 +4,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EchoMinds - Personality Assessment</title>
+    <title>EchoMinds - Tech Event Personality Quiz</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #2c2c44, #1a1a2e);
-        }
-
-        .questionnaire-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
-        .brand-logo {
-            display: flex;
-            align-items: center;
-            color: white;
-            font-size: 28px;
-            font-weight: 600;
-        }
-
-        .brand-logo span {
-            margin-left: 10px;
-        }
-
-        .questionnaire-panel {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .panel-title {
-            color: #1a1a2e;
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .question-card {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            transition: transform 0.3s ease;
-        }
-
-        .question-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .question-text {
-            font-size: 18px;
-            color: #1a1a2e;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .options-container {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .option-label {
-            flex: 1;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .option-label input[type="radio"] {
-            display: none;
-        }
-
-        .option-box {
-            background: white;
-            border: 2px solid #e1e1e1;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-            color: #1a1a2e;
-            font-weight: 500;
-        }
-
-        .option-label:hover .option-box {
-            border-color: #2575fc;
-            background: #f8f9fa;
-        }
-
-        .option-label input[type="radio"]:checked + .option-box {
-            background: linear-gradient(135deg, #2575fc, #6a11cb);
-            color: white;
-            border-color: transparent;
-            font-weight: 600;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #2575fc, #6a11cb);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .progress-bar {
-            height: 6px;
-            background: #e1e1e1;
-            border-radius: 3px;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 0;
-            background: linear-gradient(135deg, #2575fc, #6a11cb);
-            transition: width 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .questionnaire-container {
-                padding: 20px;
-            }
-
-            .questionnaire-panel {
-                padding: 20px;
-            }
-
-            .options-container {
-                flex-direction: column;
-            }
-
-            .option-box {
-                padding: 12px;
-            }
-        }
-    </style>
 </head>
 
 <body>
     <div class="questionnaire-container">
         <div class="header">
-            <div class="brand-logo">
-                🎯 <span>EchoMinds</span>
-            </div>
+            <div class="brand-logo">🎯 <span>EchoMinds</span></div>
         </div>
 
         <div class="questionnaire-panel">
-            <h1 class="panel-title">Personality Assessment</h1>
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 0%"></div>
-            </div>
-
-            <form id="mbtiForm">
+            <h1 class="panel-title">Tech Event Personality Quiz</h1>
+            <form id="quizForm">
+                <!-- Question 1 -->
                 <div class="question-card">
-                    <p class="question-text">1. Do you prefer spending time alone or with others?</p>
+                    <p class="question-text">1. What motivates you (MOST) to attend a tech event?</p>
                     <div class="options-container">
-                        <label class="option-label">
-                            <input type="radio" name="q1" value="I">
-                            <div class="option-box">Alone</div>
-                        </label>
-                        <label class="option-label">
-                            <input type="radio" name="q1" value="E">
-                            <div class="option-box">With others</div>
-                        </label>
+                        <label class="option-label"><input type="radio" name="q1" value="Innovators"> Building a
+                            portfolio project</label>
+                        <label class="option-label"><input type="radio" name="q1" value="Innovators"> Exploring
+                            potential job opportunities</label>
+                        <label class="option-label"><input type="radio" name="q1" value="Knowledge Hunters"> Learning
+                            new skills or technologies</label>
+                        <label class="option-label"><input type="radio" name="q1" value="Competitive Coders"> Competing
+                            for prizes</label>
+                        <label class="option-label"><input type="radio" name="q1" value="Social Coders"> Networking with
+                            like-minded people</label>
                     </div>
                 </div>
 
+                <!-- Question 2 -->
                 <div class="question-card">
-                    <p class="question-text">2. Are you more logical or emotional when making decisions?</p>
+                    <p class="question-text">2. What’s your preferred way to engage at tech events?</p>
                     <div class="options-container">
-                        <label class="option-label">
-                            <input type="radio" name="q2" value="T">
-                            <div class="option-box">Logical</div>
-                        </label>
-                        <label class="option-label">
-                            <input type="radio" name="q2" value="F">
-                            <div class="option-box">Emotional</div>
-                        </label>
+                        <label class="option-label"><input type="radio" name="q2" value="Innovators,Knowledge Hunters">
+                            I go by myself</label>
+                        <label class="option-label"><input type="radio" name="q2"
+                                value="Innovators,Knowledge Hunters,Competitive Coders,Social Coders"> Open to
+                            anything</label>
+                        <label class="option-label"><input type="radio" name="q2" value="Social Coders"> Attending with
+                            friends</label>
                     </div>
                 </div>
 
+                <!-- Question 3 -->
                 <div class="question-card">
-                    <p class="question-text">3. Do you prefer planning or being spontaneous?</p>
+                    <p class="question-text">3. How often do you attend tech events?</p>
                     <div class="options-container">
-                        <label class="option-label">
-                            <input type="radio" name="q3" value="J">
-                            <div class="option-box">Planning</div>
-                        </label>
-                        <label class="option-label">
-                            <input type="radio" name="q3" value="P">
-                            <div class="option-box">Spontaneous</div>
-                        </label>
+                        <label class="option-label"><input type="radio" name="q3" value="Knowledge Hunters"> Never
+                            attended before</label>
+                        <label class="option-label"><input type="radio" name="q3"
+                                value="Innovators,Knowledge Hunters,Competitive Coders,Social Coders"> Attended in the
+                            last month</label>
+                        <label class="option-label"><input type="radio" name="q3"
+                                value="Innovators,Knowledge Hunters,Competitive Coders,Social Coders"> Attended in the
+                            last year</label>
                     </div>
                 </div>
 
+                <!-- Question 4 -->
                 <div class="question-card">
-                    <p class="question-text">4. Are you more focused on the big picture or the details?</p>
+                    <p class="question-text">4. How does coding fit into your daily life?</p>
                     <div class="options-container">
-                        <label class="option-label">
-                            <input type="radio" name="q4" value="N">
-                            <div class="option-box">Big picture</div>
-                        </label>
-                        <label class="option-label">
-                            <input type="radio" name="q4" value="S">
-                            <div class="option-box">Details</div>
-                        </label>
+                        <label class="option-label"><input type="radio" name="q4"
+                                value="Knowledge Hunters,Social Coders"> Learning for fun</label>
+                        <label class="option-label"><input type="radio" name="q4"
+                                value="Innovators,Knowledge Hunters,Social Coders"> Part-time work/gigs</label>
+                        <label class="option-label"><input type="radio" name="q4" value="Innovators,Competitive Coders">
+                            It's my day job</label>
+                        <label class="option-label"><input type="radio" name="q4" value="Innovators,Competitive Coders">
+                            Coding is my 24/7 bae</label>
                     </div>
                 </div>
 
-                <div class="question-card">
-                    <p class="question-text">5. Do you prefer leading or following in a group?</p>
-                    <div class="options-container">
-                        <label class="option-label">
-                            <input type="radio" name="q5" value="L">
-                            <div class="option-box">Leading</div>
-                        </label>
-                        <label class="option-label">
-                            <input type="radio" name="q5" value="F">
-                            <div class="option-box">Following</div>
-                        </label>
-                    </div>
-                </div>
-
-                <button type="submit" class="submit-btn">Submit Assessment</button>
+                <button type="submit" class="submit-btn">Submit</button>
             </form>
         </div>
     </div>
 
-    <script src="script.js"></script>
     <script>
-        // Update progress bar based on answered questions
-        document.querySelectorAll('input[type="radio"]').forEach(radio => {
-            radio.addEventListener('change', updateProgress);
+    document.getElementById("quizForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Initialize point counters for each category
+        let scores = {
+            "Innovators 🚀": 0,
+            "Knowledge Hunters 📚": 0,
+            "Competitive Coders 🏆": 0,
+            "Social Coders 🤝": 0
+        };
+
+        // Define how each option contributes to points
+        const scoring = {
+            "q1": {
+                "Building a portfolio project": "Innovators 🚀",
+                "Exploring potential job opportunities": "Innovators 🚀",
+                "Learning new skills or technologies": "Knowledge Hunters 📚",
+                "Competing for prizes": "Competitive Coders 🏆",
+                "Networking with like-minded people": "Social Coders 🤝"
+            },
+            "q2": {
+                "I go by myself": ["Innovators 🚀", "Knowledge Hunters 📚"],
+                "Open to anything": ["Innovators 🚀", "Knowledge Hunters 📚", "Competitive Coders 🏆", "Social Coders 🤝"],
+                "Attending with friends": ["Social Coders 🤝"]
+            },
+            "q3": {
+                "Never attended before": "Knowledge Hunters 📚",
+                "Attended in the last month": ["Innovators 🚀", "Knowledge Hunters 📚", "Competitive Coders 🏆", "Social Coders 🤝"],
+                "Attended in the last year": ["Innovators 🚀", "Knowledge Hunters 📚", "Competitive Coders 🏆", "Social Coders 🤝"]
+            },
+            "q4": {
+                "Learning for fun": ["Knowledge Hunters 📚", "Social Coders 🤝"],
+                "Part-time work/gigs": ["Innovators 🚀", "Knowledge Hunters 📚", "Social Coders 🤝"],
+                "It's my day job": ["Innovators 🚀", "Competitive Coders 🏆"],
+                "Coding is my 24/7 bae": ["Innovators 🚀", "Competitive Coders 🏆"]
+            }
+        };
+
+        // Calculate scores based on selected answers
+        document.querySelectorAll('input[type="radio"]:checked').forEach(option => {
+            const question = option.name;
+            const answer = option.parentElement.innerText.trim(); // Get text of selected option
+
+            if (scoring[question]) {
+                const categories = scoring[question][answer];
+                if (Array.isArray(categories)) {
+                    categories.forEach(category => scores[category]++);
+                } else {
+                    scores[categories]++;
+                }
+            }
         });
 
-        function updateProgress() {
-            const totalQuestions = 5;
-            const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
-            const progressPercentage = (answeredQuestions / totalQuestions) * 100;
-            document.querySelector('.progress-fill').style.width = `${progressPercentage}%`;
+        console.log("Final scores:", scores); // Debugging output
+
+        // Determine the category with the highest score
+        let highestLabel = Object.keys(scores).reduce((a, b) => (scores[a] > scores[b] ? a : b));
+
+        // Ensure a label is assigned even in case of a tie
+        let maxScore = scores[highestLabel];
+        let tiedLabels = Object.keys(scores).filter(label => scores[label] === maxScore);
+
+        if (tiedLabels.length > 1) {
+            highestLabel = "Social Coders 🤝"; // Default in case of a tie
         }
+
+        // Update user label in localStorage
+        let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        currentUser.label = highestLabel;
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+        // Send updated data to the server to update users.csv
+        fetch("http://localhost:3001/update-csv", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(currentUser),
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log("CSV Update Response:", data);
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 1000);
+            })
+            .catch(error => console.error("Error updating CSV:", error));
+    });
+
+
     </script>
 </body>
 

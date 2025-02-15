@@ -25,16 +25,16 @@ if (!fs.existsSync(csvFilePath)) {
 app.post("/update-csv", (req, res) => {
     const { username, password, mbti, label } = req.body;
 
-    if (!username || !password || !mbti || !label) {
+    if (!username || !password || !label) {
         return res.status(400).send("Missing user data");
     }
 
     let csvContent = fs.readFileSync(csvFilePath, "utf-8").split("\n");
     let userExists = false;
-    
-    // ✅ Check if the user already exists and update their data
+
+    // Update existing user or add a new one
     csvContent = csvContent.map(line => {
-        const [existingUsername, existingPassword, existingMbti, existingLabel] = line.split(",");
+        const [existingUsername] = line.split(",");
         if (existingUsername === username) {
             userExists = true;
             return `${username},${password},${mbti},${label}`;
@@ -42,7 +42,6 @@ app.post("/update-csv", (req, res) => {
         return line;
     });
 
-    // ✅ If user doesn't exist, append a new entry
     if (!userExists) {
         csvContent.push(`${username},${password},${mbti},${label}`);
     }
@@ -51,6 +50,7 @@ app.post("/update-csv", (req, res) => {
     console.log(`User ${userExists ? "updated" : "added"}: ${username}`);
     res.send(`User ${userExists ? "updated" : "added"} successfully`);
 });
+
 
 app.post("/delete-user", (req, res) => {
     const { username } = req.body;
@@ -82,6 +82,37 @@ app.post("/delete-user", (req, res) => {
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
 });
+
+app.get("/get-users", (req, res) => {
+    fs.readFile(csvFilePath, "utf-8", (err, data) => {
+        if (err) {
+            res.status(500).send("Error reading users.csv");
+            return;
+        }
+
+        const lines = data.split("\n").slice(1); // Ignore header row
+        let users = [];
+
+        lines.forEach(line => {
+            const columns = line.split(",");
+            if (columns.length >= 4) {
+                let username = columns[0].trim();
+                let label = columns[3].trim(); // Ensure label is correctly extracted
+
+                if (username && label) {
+                    users.push({ username, label });
+                }
+            }
+        });
+
+        res.json(users);
+    });
+});
+
+
+
+
+
 
 app.listen(port, () => {
     console.log(`✅ Server running at http://localhost:${port}`);

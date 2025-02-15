@@ -2,13 +2,54 @@
 let users = JSON.parse(localStorage.getItem("users")) || [];
 
 // Ensure user is logged in before accessing the dashboard
+// Ensure user is logged in before accessing the dashboard
 document.addEventListener("DOMContentLoaded", function () {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    fetch("http://localhost:3001/get-users") // Fetch user data
+        .then(response => response.json())
+        .then(data => {
+            if (!data || data.length === 0) return;
 
-    if (!currentUser && window.location.pathname !== "/index.html") {
-        window.location.href = "index.html"; // Redirect to login if no user
-    }
+            let totalUsers = data.length;
+            let labelCounts = {
+                "Innovators 🚀": 0,
+                "Knowledge Hunters 📚": 0,
+                "Competitive Coders 🏆": 0,
+                "Social Coders 🤝": 0
+            };
+
+            // Count occurrences of each label
+            data.forEach(user => {
+                let userLabel = user.label.trim();
+                if (userLabel.includes("Innovators")) labelCounts["Innovators 🚀"]++;
+                if (userLabel.includes("Knowledge Hunters")) labelCounts["Knowledge Hunters 📚"]++;
+                if (userLabel.includes("Competitive Coders")) labelCounts["Competitive Coders 🏆"]++;
+                if (userLabel.includes("Social Coders")) labelCounts["Social Coders 🤝"]++;
+            });
+
+            // Populate table
+            const statsTableBody = document.querySelector("#statsTable tbody");
+            statsTableBody.innerHTML = ""; // Clear existing data
+
+            Object.keys(labelCounts).forEach(label => {
+                let count = labelCounts[label];
+                let percentage = totalUsers > 0 ? ((count / totalUsers) * 100).toFixed(2) + "%" : "0%";
+
+                let row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${label}</td>
+                    <td>${count}</td>
+                    <td>${percentage}</td>
+                `;
+                statsTableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error("Error loading statistics:", error));
 });
+
+
+
+
+
 
 // Logout function
 document.getElementById("logoutButton")?.addEventListener("click", function () {
@@ -27,23 +68,27 @@ document.getElementById("registerForm")?.addEventListener("submit", function (e)
         return;
     }
 
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
     if (users.find(user => user.username === username)) {
         alert("Username already exists.");
         return;
     }
 
+    // New user, waiting for questionnaire result
     const newUser = { username, password, mbti: "", label: "" };
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("currentUser", JSON.stringify(newUser)); // Store session
+    localStorage.setItem("currentUser", JSON.stringify(newUser));
 
-    console.log("New user stored in localStorage:", newUser);
+    console.log("New user registered:", newUser);
 
-    // ✅ Ensure `currentUser` is available before redirection
+    // Redirect to the questionnaire page
     setTimeout(() => {
         window.location.href = "questionnaire.html";
     }, 1000);
 });
+
 
 // MBTI Questionnaire - Fixed CSV Update Issue
 document.getElementById("mbtiForm")?.addEventListener("submit", function (e) {

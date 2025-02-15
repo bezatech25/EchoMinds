@@ -22,6 +22,33 @@ body {
     color: black;
 }
 
+#statsTable {
+    width: 100%;
+    text-align: center;
+    background: white;
+    border-radius: 10px;
+    border-collapse: collapse;
+    /* Ensures proper border display */
+}
+
+#statsTable th,
+#statsTable td {
+    padding: 10px;
+    border: 2px solid #2575fc;
+    /* Blue border for styling */
+    color: black;
+    /* Set text color to black */
+    font-weight: bold;
+    /* Make text bold for better visibility */
+}
+
+#statsTable th {
+    background-color: #2575fc;
+    /* Keep blue header background */
+    color: white;
+    /* White text for headers */
+}
+
 /* Tabs */
 .tabs {
     display: flex;
