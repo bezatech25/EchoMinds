@@ -321,8 +321,16 @@
 
         function closeTaskPopup() {
             document.getElementById('taskPopup').style.display = 'none';
+
+            // Show confetti before redirecting
             showConfirmation();
+
+            // Redirect to thank you page after 2.5 seconds
+            setTimeout(() => {
+                window.location.href = "thankyou.html";
+            }, 2500);
         }
+
 
         function showConfirmation() {
             // Multiple confetti bursts
