@@ -1,0 +1,85 @@
+/* EchoMinds Theme */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Main Container */
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    text-align: center;
+    color: black;
+}
+
+/* Input Fields & Buttons */
+input,
+button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Logout Button */
+.logout-btn {
+    background-color: #ff4b5c;
+    margin-bottom: 15px;
+}
+
+.logout-btn:hover {
+    background-color: #d94352;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.tabs button {
+    flex: 1;
+    margin: 0 5px;
+    background: #2575fc;
+    color: white;
+}
+
+.tabs button:hover {
+    background: #1a5bc6;
+}
+
+/* Panels */
+#eventsPanel,
+#addFriendPanel {
+    display: none;
+}
+
+#eventsPanel.active,
+#addFriendPanel.active {
+    display: block;
+}
