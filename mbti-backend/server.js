@@ -52,6 +52,32 @@ app.post("/update-csv", (req, res) => {
     res.send(`User ${userExists ? "updated" : "added"} successfully`);
 });
 
+app.post("/delete-user", (req, res) => {
+    const { username } = req.body;
+
+    if (!username) {
+        return res.status(400).send("Username is required.");
+    }
+
+    const csvFilePath = path.join(__dirname, "users.csv");
+
+    // Read the CSV file
+    let csvContent = fs.readFileSync(csvFilePath, "utf-8").split("\n");
+
+    // Filter out the user to delete
+    const updatedCsv = csvContent.filter(line => {
+        const [existingUsername] = line.split(",");
+        return existingUsername !== username; // Keep only users that are NOT the one being deleted
+    });
+
+    // Write the updated CSV back
+    fs.writeFileSync(csvFilePath, updatedCsv.join("\n"));
+
+    console.log(`User ${username} deleted from CSV.`);
+    res.send(`User ${username} has been successfully withdrawn.`);
+});
+
+
 // Define a route for the home page
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));

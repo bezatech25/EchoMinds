@@ -102,16 +102,52 @@ function calculateLabel(answers) {
 }
 
 // Handle tab switching
-document.getElementById("eventsTab")?.addEventListener("click", function () {
-    document.getElementById("eventsPanel").style.display = "block";
-    document.getElementById("addFriendPanel").style.display = "none";
-});
+//document.getElementById("eventsTab")?.addEventListener("click", function () {
+  //  document.getElementById("eventsPanel").style.display = "block";
+    //document.getElementById("addFriendPanel").style.display = "none";
+//});
 
 document.getElementById("addFriendTab")?.addEventListener("click", function () {
     document.getElementById("eventsPanel").style.display = "none";
     document.getElementById("addFriendPanel").style.display = "block";
     populateFriends();
 });
+
+
+document.getElementById("withdrawButton")?.addEventListener("click", function () {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (!currentUser) {
+        alert("No user found.");
+        return;
+    }
+
+    const confirmDelete = confirm("Are you sure you want to withdraw? This action cannot be undone.");
+    if (!confirmDelete) return;
+
+    // Remove user from local storage
+    localStorage.removeItem("currentUser");
+
+    // Remove user from the local list
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    users = users.filter(user => user.username !== currentUser.username);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // Send request to backend to remove user from CSV
+    fetch("http://localhost:3001/delete-user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: currentUser.username })
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log("Withdraw Response:", data);
+        alert("Your account has been successfully deleted.");
+        window.location.href = "index.html"; // Redirect to login page
+    })
+    .catch(error => console.error("Error withdrawing user:", error));
+});
+
 
 // Function to display friends with the same label
 function populateFriends() {
