@@ -100,3 +100,82 @@ function calculateLabel(answers) {
            followerCount > leaderCount ? "Follower" :
            "Entrepreneur";
 }
+
+// Handle tab switching
+document.getElementById("eventsTab")?.addEventListener("click", function () {
+    document.getElementById("eventsPanel").style.display = "block";
+    document.getElementById("addFriendPanel").style.display = "none";
+});
+
+document.getElementById("addFriendTab")?.addEventListener("click", function () {
+    document.getElementById("eventsPanel").style.display = "none";
+    document.getElementById("addFriendPanel").style.display = "block";
+    populateFriends();
+});
+
+// Function to display friends with the same label
+function populateFriends() {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser) return;
+
+    const filteredUsers = users.filter(user =>
+        user.label.toLowerCase() === currentUser.label.toLowerCase() &&
+        user.username !== currentUser.username
+    );
+
+    const friendList = document.getElementById("friendList");
+    friendList.innerHTML = ""; // Clear previous results
+
+    if (filteredUsers.length === 0) {
+        friendList.innerHTML = "<li>No matching friends found</li>";
+    } else {
+        filteredUsers.forEach(user => {
+            let listItem = document.createElement("li");
+            listItem.textContent = `${user.username} (${user.mbti}) - ${user.label}`;
+            friendList.appendChild(listItem);
+        });
+    }
+}
+
+// Display events in Eventbrite format
+function displayEvents() {
+    const eventContainer = document.getElementById("eventsList");
+    eventContainer.innerHTML = ""; // Clear previous events
+
+    const events = [
+        {
+            name: "Mindfulness for Mental Wellbeing",
+            date: "Fri, 28 Feb, 19:00",
+            location: "Brahm Mindfulness Centre @ Newton",
+            price: "Free",
+            image: "https://source.unsplash.com/400x200/?meditation,mentalhealth"
+        },
+        {
+            name: "World Ageing Festival 2025",
+            date: "Wed, 9 Apr, 09:00",
+            location: "Marina Bay Sands Singapore",
+            price: "Free",
+            image: "https://source.unsplash.com/400x200/?elderly,healthcare"
+        }
+    ];
+
+    events.forEach(event => {
+        let eventCard = document.createElement("div");
+        eventCard.classList.add("event-card");
+        eventCard.innerHTML = `
+            <img src="${event.image}" alt="${event.name}">
+            <div class="event-info">
+                <h3>${event.name}</h3>
+                <p><strong>Date:</strong> ${event.date}</p>
+                <p><strong>Location:</strong> ${event.location}</p>
+                <p><strong>Price:</strong> ${event.price}</p>
+            </div>
+        `;
+        eventContainer.appendChild(eventCard);
+    });
+}
+
+// Load events when page loads
+window.onload = function () {
+    displayEvents();
+};
