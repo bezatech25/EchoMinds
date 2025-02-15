@@ -4,20 +4,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register/Login</title>
+    <title>EchoMinds - Event Registration</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+        }
+
+        .split-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .left-panel {
+            flex: 1;
+            background: linear-gradient(135deg, #2c2c44, #1a1a2e);
+            color: white;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .right-panel {
+            flex: 1;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .brand {
+            margin-bottom: 40px;
+        }
+
+        .brand-logo {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-logo span {
+            margin-left: 10px;
+            font-weight: 600;
+        }
+
+        .hero-text {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-subtext {
+            font-size: 20px;
+            opacity: 0.8;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            font-size: 28px;
+            color: #1a1a2e;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2575fc;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #2575fc;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .split-container {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                padding: 40px 20px;
+            }
+
+            .right-panel {
+                padding: 20px;
+            }
+
+            .hero-text {
+                font-size: 36px;
+            }
+
+            .hero-subtext {
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Register</h1>
-        <form id="registerForm">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit">Register</button>
-        </form>
-        <p>Already have an account? <a href="#" id="loginLink">Login</a></p>
+    <div class="split-container">
+        <div class="left-panel">
+            <div class="brand">
+                <div class="brand-logo">
+                    🎯 <span>EchoMinds</span>
+                </div>
+            </div>
+            <h1 class="hero-text">Discover your perfect tech match!</h1>
+            <p class="hero-subtext">Join HackOnMania 2025 and connect with like-minded innovators. Register now to unlock personalized networking opportunities.</p>
+        </div>
+        <div class="right-panel">
+            <div class="form-container">
+                <h2 class="form-title">Create Account</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="username">Full Name</label>
+                        <input type="text" id="username" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Create a password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Create Account</button>
+                </form>
+                <div class="login-link">
+                    Already have an account? <a href="#" id="loginLink">Log In</a>
+                </div>
+            </div>
+        </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 

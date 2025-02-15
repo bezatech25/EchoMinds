@@ -3,45 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Check-in</title>
+    <title>EchoMinds - Event Check-in</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Additional styles specific to check-in page */
-        .event-details {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2c2c44, #1a1a2e);
         }
-        
+
+        .checkin-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .brand-logo span {
+            margin-left: 10px;
+        }
+
+        .checkin-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .panel-title {
+            color: #1a1a2e;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .event-details {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            transition: transform 0.3s ease;
+        }
+
         .event-title {
             font-size: 24px;
+            color: #1a1a2e;
             margin-bottom: 10px;
-            color: #333;
+            font-weight: 600;
         }
-        
+
         .event-date {
             font-size: 18px;
             color: #666;
-            margin-bottom: 20px;
-        }
-        
-        .check-in-btn {
-            background: #2575fc;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        
-        .check-in-btn:hover {
-            background: #1a5bc6;
         }
 
-        /* Pop-up styles */
+        .check-in-btn {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .check-in-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Popup styles */
         .popup {
             display: none;
             position: fixed;
@@ -49,61 +98,97 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             z-index: 1000;
-            width: 400px;
+            width: 90%;
+            max-width: 400px;
         }
 
         .popup h2 {
-            margin-bottom: 20px;
-            color: #333;
+            color: #1a1a2e;
+            font-size: 24px;
+            margin-bottom: 25px;
+            text-align: center;
         }
 
-        .popup button {
-            margin: 10px;
-            padding: 8px 20px;
-            border: none;
-            border-radius: 5px;
-            background: #2575fc;
-            color: white;
-            cursor: pointer;
-        }
-
-        /* New styles for dropdown and input */
         .color-select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            padding: 12px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
             font-size: 16px;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        .color-select:focus {
+            outline: none;
+            border-color: #2575fc;
         }
 
         .other-color-input {
             display: none;
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
             font-size: 16px;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        .other-color-input:focus {
+            outline: none;
+            border-color: #2575fc;
         }
 
         .submit-btn {
             width: 100%;
-            padding: 12px;
-            background: #2575fc;
+            padding: 14px;
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
             color: white;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            border-radius: 8px;
             font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
         .submit-btn:hover {
-            background: #1a5bc6;
+            transform: translateY(-2px);
+        }
+
+        .task-content {
+            text-align: left;
+        }
+
+        .task-description {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #2575fc;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .task-tips {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .task-tips p {
+            margin: 10px 0;
+            color: #1a1a2e;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .overlay {
@@ -117,143 +202,38 @@
             z-index: 999;
         }
 
-        /* Additional task popup styles */
-        .task-content {
-            text-align: left;
-            margin: 20px 0;
-        }
-
-        .task-description {
-            font-size: 18px;
-            line-height: 1.5;
-            margin-bottom: 15px;
-            color: #2575fc;
-            font-weight: 500;
-        }
-
-        .mission-text {
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .task-tips {
-            background: #f5f8ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .task-tips p {
-            margin: 8px 0;
-            color: #555;
-            font-size: 14px;
-        }
-
-        .mission-btn {
-            background: #2575fc;
-            color: white;
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            margin-top: 15px;
-        }
-
-        .mission-btn:hover {
-            background: #1a5bc6;
-        }
-
-        /* Confirmation popup styles */
-        .confirmation-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            z-index: 2000;
-            width: 350px;
-            text-align: center;
-            color: white;
-            animation: popInAndGlow 0.5s ease-out;
-        }
-
-        @keyframes popInAndGlow {
-            0% { 
-                transform: translate(-50%, -50%) scale(0.8); 
-                opacity: 0;
-                box-shadow: 0 0 0 rgba(106, 17, 203, 0);
+        @media (max-width: 768px) {
+            .checkin-container {
+                padding: 20px;
             }
-            50% { 
-                transform: translate(-50%, -50%) scale(1.05);
-                box-shadow: 0 0 30px rgba(106, 17, 203, 0.5);
+
+            .checkin-panel {
+                padding: 30px 20px;
             }
-            100% { 
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+            .popup {
+                padding: 30px 20px;
+                width: 85%;
             }
-        }
-
-        .confirmation-popup h2 {
-            color: white;
-            margin-bottom: 20px;
-            font-size: 28px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .confirmation-popup p {
-            margin: 12px 0;
-            font-size: 18px;
-            line-height: 1.5;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .emoji-icon {
-            font-size: 50px;
-            margin: 15px 0;
-            animation: bounce 1s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .close-confirmation {
-            background: white;
-            color: #2575fc;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .close-confirmation:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="event-details">
-            <h1 class="event-title">HackOnMania 2025</h1>
-            <p class="event-date">February 15, 2025</p>
+    <div class="checkin-container">
+        <div class="header">
+            <div class="brand-logo">
+                🎯 <span>EchoMinds</span>
+            </div>
         </div>
-        <button class="check-in-btn" onclick="showTshirtPopup()">Check In</button>
+
+        <div class="checkin-panel">
+            <h1 class="panel-title">Event Check-in</h1>
+            <div class="event-details">
+                <div class="event-title">HackOnMania 2025</div>
+                <div class="event-date">February 15, 2025</div>
+            </div>
+            <button class="check-in-btn" onclick="showTshirtPopup()">Check In</button>
+        </div>
     </div>
 
     <!-- T-shirt Color Pop-up -->
@@ -289,19 +269,10 @@
                 <p>🤝 You might just find your perfect hackathon partner!</p>
             </div>
         </div>
-        <button class="mission-btn" onclick="closeTaskPopup()">Accept Mission!</button>
+        <button class="submit-btn" onclick="closeTaskPopup()">Accept Mission!</button>
     </div>
 
     <div id="overlay" class="overlay"></div>
-
-    <!-- Confirmation Popup -->
-    <div id="confirmationPopup" class="confirmation-popup">
-        <div class="emoji-icon">🎯</div>
-        <h2>Mission Accepted!</h2>
-        <p>You're now on a quest to find your tech soulmate!</p>
-        <p>Time to mingle and discover amazing connections!</p>
-        <button class="close-confirmation" onclick="closeConfirmation()">Let's Go! 🚀</button>
-    </div>
 
     <!-- Add confetti.js library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
@@ -344,7 +315,6 @@
 
             document.getElementById('tshirtPopup').style.display = 'none';
             document.getElementById('taskPopup').style.display = 'block';
-            // Update both instances of the color in the task popup
             document.getElementById('targetColor').textContent = selectedColor;
             document.getElementById('targetColorRepeat').textContent = selectedColor;
         }
@@ -386,20 +356,11 @@
                 }
             }());
 
-            // Show confirmation popup with slight delay for better effect
-            setTimeout(() => {
-                document.getElementById('confirmationPopup').style.display = 'block';
-                document.getElementById('overlay').style.display = 'block';
-            }, 300);
-        }
-
-        function closeConfirmation() {
-            document.getElementById('confirmationPopup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
             // Reset the form for next use
             document.getElementById('colorSelect').value = '';
             document.getElementById('otherColor').value = '';
             document.getElementById('otherColor').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
         }
     </script>
 </body>

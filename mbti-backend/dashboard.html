@@ -6,30 +6,213 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EchoMinds Dashboard</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2c2c44, #1a1a2e);
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .brand-logo span {
+            margin-left: 10px;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            background: white;
+            color: #1a1a2e;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            color: white;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .panel h2 {
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #2575fc;
+        }
+
+        .list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .list-item {
+            padding: 15px;
+            border-bottom: 1px solid #e1e1e1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .event-details {
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 20px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .panel {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>EchoMinds Dashboard</h1>
-        <button id="logoutButton" class="logout-btn">Logout</button>
+    <div class="dashboard-container">
+        <div class="header">
+            <div class="brand-logo">
+                🎯 <span>EchoMinds</span>
+            </div>
+            <button id="logoutButton" class="logout-btn">Logout</button>
+        </div>
+
         <div class="tabs">
-            <button id="eventsTab">Events</button>
-            <button id="addFriendTab">Add Friend</button>
+            <button id="eventsTab" class="tab-btn active">Events</button>
+            <button id="addFriendTab" class="tab-btn">Add Friend</button>
         </div>
-        <div id="eventsPanel">
-            <h2>Events</h2>
-            <ul id="eventsList">
-                <!-- Events will be populated here -->
-            </ul>
+
+        <div id="eventsPanel" class="panel">
+            <h2>Upcoming Events</h2>
+            <div id="eventsList" class="list">
+                <!-- Example event card -->
+                <div class="event-card">
+                    <div class="event-title">HackOnMania 2025</div>
+                    <div class="event-details">
+                        February 15, 2025 • Tech Innovation Hub
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="addFriendPanel" style="display: none;">
-            <h2>Add Friend</h2>
-            <input type="text" id="searchFriend" placeholder="Search by MBTI label">
-            <ul id="friendList">
-                <!-- Friends will be populated here -->
+
+        <div id="addFriendPanel" class="panel" style="display: none;">
+            <h2>Find Tech Matches</h2>
+            <input type="text" id="searchFriend" class="search-box" placeholder="Search by interests or MBTI type...">
+            <ul id="friendList" class="list">
+                <!-- Friend suggestions will be populated here -->
             </ul>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 
