@@ -163,9 +163,26 @@
             transform: translateY(-2px);
         }
 
-        .task-content {
-            text-align: left;
-        }
+.task-content {
+    color: black; /* Ensures all text in task-content is black */
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.task-description,
+.mission-text,
+.task-tips p {
+    color: black; /* Ensures individual elements inside task-content are also black */
+}
+
+#userLabel,
+#matchingLabel,
+#targetColor,
+#targetColorRepeat {
+    font-weight: bold;
+    color: black !important; /* Ensures dynamically inserted labels stay black */
+}
+
 
         .task-description {
             font-size: 18px;
@@ -257,20 +274,32 @@
         <button class="submit-btn" onclick="submitTshirt()">Submit</button>
     </div>
 
-    <!-- Task Pop-up -->
-    <div id="taskPopup" class="popup">
-        <h2>Your Mission!</h2>
-        <div class="task-content">
-            <p class="task-description">Someone in a <span id="targetColor">blue</span> shirt, passionate about Quantum Computing and Data Privacy, is on the hunt with you!</p>
-            <p class="mission-text">Find this tech enthusiast who shares your cutting-edge interests!</p>
-            <div class="task-tips">
-                <p>👀 Keep an eye out for the <span id="targetColorRepeat">blue</span> shirt</p>
-                <p>💡 Strike up a conversation about emerging tech</p>
-                <p>🤝 You might just find your perfect hackathon partner!</p>
-            </div>
+<!-- Task Pop-up -->
+<div id="taskPopup" class="popup">
+    <h2>Your Mission!</h2>
+    <div class="task-content">
+        <p class="task-description">
+            Someone in a <span id="targetColor">blue</span> shirt, passionate about Quantum Computing and Data Privacy,
+            is on the hunt with you!
+        </p>
+        <p class="mission-text">
+            Find this tech enthusiast who shares your cutting-edge interests!
+        </p>
+        <p class="mission-text">
+            🎯 Your assigned tech label: <strong><span id="userLabel">Loading...</span></strong>
+        </p>
+        <p class="mission-text">
+            🔍 Find someone who also has the <strong><span id="matchingLabel">Loading...</span></strong> label!
+        </p>
+        <div class="task-tips">
+            <p>👀 Keep an eye out for the <span id="targetColorRepeat">blue</span> shirt</p>
+            <p>💡 Strike up a conversation about emerging tech</p>
+            <p>🤝 You might just find your perfect hackathon partner!</p>
         </div>
-        <button class="submit-btn" onclick="closeTaskPopup()">Accept Mission!</button>
     </div>
+    <button class="submit-btn" onclick="closeTaskPopup()">Accept Mission!</button>
+</div>
+
 
     <div id="overlay" class="overlay"></div>
 
@@ -279,9 +308,22 @@
 
     <script>
         function showTshirtPopup() {
-            document.getElementById('tshirtPopup').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
-        }
+                let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+                if (!currentUser || !currentUser.label) {
+                    alert("Error: Could not retrieve your assigned label. Please complete the questionnaire.");
+                    window.location.href = "questionnaire.html"; // Redirect if label is missing
+                    return;
+                }
+
+                // 🛠 FIX: Set the label in the popup before opening it
+                document.getElementById('userLabel').textContent = currentUser.label;
+                document.getElementById('matchingLabel').textContent = currentUser.label;
+
+                document.getElementById('tshirtPopup').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+            }
+
 
         function handleColorSelect() {
             const colorSelect = document.getElementById('colorSelect');

@@ -2,7 +2,6 @@
 let users = JSON.parse(localStorage.getItem("users")) || [];
 
 // Ensure user is logged in before accessing the dashboard
-// Ensure user is logged in before accessing the dashboard
 document.addEventListener("DOMContentLoaded", function () {
     fetch("http://localhost:3001/get-users") // Fetch user data
         .then(response => response.json())
@@ -47,6 +46,76 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+// 🚀 **Function to handle T-shirt color selection & Mission Assignment**
+function submitTshirt() {
+    const colorSelect = document.getElementById('colorSelect');
+    const otherColorInput = document.getElementById('otherColor');
+    let selectedColor;
+
+    if (colorSelect.value === 'other') {
+        selectedColor = otherColorInput.value.trim();
+        if (!selectedColor) {
+            alert('Please specify your T-shirt color');
+            return;
+        }
+    } else if (!colorSelect.value) {
+        alert('Please select a T-shirt color');
+        return;
+    } else {
+        selectedColor = colorSelect.value;
+    }
+
+    // Retrieve current user's label from localStorage
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (!currentUser || !currentUser.label) {
+        alert("Error: Your label is missing. Redirecting to questionnaire.");
+        window.location.href = "questionnaire.html";
+        return;
+    }
+
+    let userLabel = currentUser.label;
+
+    // ✅ Set the user label in the task popup
+    document.getElementById('userLabel').textContent = userLabel;
+    document.getElementById('matchingLabel').textContent = userLabel;
+    
+    // ✅ Set the selected T-shirt color
+    document.getElementById('targetColor').textContent = selectedColor;
+    document.getElementById('targetColorRepeat').textContent = selectedColor;
+
+    // ✅ Show the task popup
+    document.getElementById('tshirtPopup').style.display = 'none';
+    document.getElementById('taskPopup').style.display = 'block';
+}
+
+
+
+
+
+// 🚀 **Ensure the Label is Stored on Registration**
+document.getElementById("loginForm")?.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let user = users.find(user => user.username === username && user.password === password);
+
+    if (user) {
+        if (!user.label || user.label.trim() === "") {
+            alert("You need to complete the questionnaire first.");
+            window.location.href = "questionnaire.html"; 
+            return;
+        }
+
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        window.location.href = "dashboard.html";
+    } else {
+        alert("Invalid username or password.");
+    }
+});
+
 
 
 
@@ -75,18 +144,57 @@ document.getElementById("registerForm")?.addEventListener("submit", function (e)
         return;
     }
 
-    // New user, waiting for questionnaire result
+    // 🛠 FIX: New users will be assigned a label after the questionnaire
     const newUser = { username, password, mbti: "", label: "" };
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
     localStorage.setItem("currentUser", JSON.stringify(newUser));
 
-    console.log("New user registered:", newUser);
-
-    // Redirect to the questionnaire page
+    // Redirect user to questionnaire to determine their label
     setTimeout(() => {
         window.location.href = "questionnaire.html";
     }, 1000);
+});
+
+document.getElementById("quizForm")?.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    let scores = {
+        "Innovators 🚀": 0,
+        "Knowledge Hunters 📚": 0,
+        "Competitive Coders 🏆": 0,
+        "Social Coders 🤝": 0
+    };
+
+    document.querySelectorAll('input[type="radio"]:checked').forEach(option => {
+        const answer = option.parentElement.innerText.trim();
+        if (answer.includes("Innovators")) scores["Innovators 🚀"]++;
+        if (answer.includes("Knowledge Hunters")) scores["Knowledge Hunters 📚"]++;
+        if (answer.includes("Competitive Coders")) scores["Competitive Coders 🏆"]++;
+        if (answer.includes("Social Coders")) scores["Social Coders 🤝"]++;
+    });
+
+    let highestLabel = Object.keys(scores).reduce((a, b) => (scores[a] > scores[b] ? a : b));
+
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    
+    if (!currentUser) {
+        alert("Error: No logged-in user found.");
+        return;
+    }
+
+    // ✅ Store the assigned label correctly
+    currentUser.label = highestLabel;
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
+    // ✅ Ensure the label is also stored in the users list
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    users = users.map(user => user.username === currentUser.username ? currentUser : user);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // ✅ Notify and redirect user to dashboard
+    alert("Your tech label is: " + highestLabel);
+    window.location.href = "dashboard.html";
 });
 
 
