@@ -1,8 +1,5 @@
 HACKONMANIA 2025
 
-
-UPDATED CODE IN teng-UI-change-2235 BRANCH
-
 # EchoMinds
 
 **EchoMinds** is a community-driven event platform designed to connect tech enthusiasts based on their interests and engagement styles. Participants can check in at events, take personality-based quizzes, and gain insights into the tech community.
