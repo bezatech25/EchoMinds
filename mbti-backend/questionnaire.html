@@ -6,6 +6,213 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EchoMinds - Tech Event Personality Quiz</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2c2c44, #1a1a2e);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .questionnaire-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .brand-logo span {
+            margin-left: 10px;
+        }
+
+        .questionnaire-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: calc(100vh - 140px);
+        }
+
+        .panel-title {
+            color: #1a1a2e;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-text {
+            font-size: 16px;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: white;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #1a1a2e;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .option-label:hover {
+            border-color: #2575fc;
+            background: #f8f9fa;
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 10px;
+            width: 16px;
+            height: 16px;
+            accent-color: #2575fc;
+        }
+
+        .option-label input[type="radio"]:checked + .option-label {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            color: white;
+            border-color: transparent;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Custom scrollbar for better appearance */
+        .questionnaire-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .questionnaire-panel::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .questionnaire-panel::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .questionnaire-panel::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        @media (max-width: 768px) {
+            .questionnaire-container {
+                margin: 10px auto;
+                padding: 15px;
+            }
+
+            .questionnaire-panel {
+                padding: 20px;
+                max-height: calc(100vh - 100px);
+            }
+
+            .header {
+                margin-bottom: 15px;
+            }
+
+            .brand-logo {
+                font-size: 20px;
+            }
+
+            .panel-title {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .question-card {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .question-text {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .option-label {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+
+            .submit-btn {
+                padding: 12px;
+                font-size: 14px;
+                margin-top: 15px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .questionnaire-container {
+                margin: 40px auto;
+            }
+
+            .questionnaire-panel {
+                max-height: calc(100vh - 200px);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -21,30 +228,45 @@
                 <div class="question-card">
                     <p class="question-text">1. What motivates you (MOST) to attend a tech event?</p>
                     <div class="options-container">
-                        <label class="option-label"><input type="radio" name="q1" value="Innovators"> Building a
-                            portfolio project</label>
-                        <label class="option-label"><input type="radio" name="q1" value="Innovators"> Exploring
-                            potential job opportunities</label>
-                        <label class="option-label"><input type="radio" name="q1" value="Knowledge Hunters"> Learning
-                            new skills or technologies</label>
-                        <label class="option-label"><input type="radio" name="q1" value="Competitive Coders"> Competing
-                            for prizes</label>
-                        <label class="option-label"><input type="radio" name="q1" value="Social Coders"> Networking with
-                            like-minded people</label>
+                        <label class="option-label">
+                            <input type="radio" name="q1" value="Innovators">
+                            Building a portfolio project
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q1" value="Innovators">
+                            Exploring potential job opportunities
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q1" value="Knowledge Hunters">
+                            Learning new skills or technologies
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q1" value="Competitive Coders">
+                            Competing for prizes
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q1" value="Social Coders">
+                            Networking with like-minded people
+                        </label>
                     </div>
                 </div>
 
                 <!-- Question 2 -->
                 <div class="question-card">
-                    <p class="question-text">2. What’s your preferred way to engage at tech events?</p>
+                    <p class="question-text">2. What's your preferred way to engage at tech events?</p>
                     <div class="options-container">
-                        <label class="option-label"><input type="radio" name="q2" value="Innovators,Knowledge Hunters">
-                            I go by myself</label>
-                        <label class="option-label"><input type="radio" name="q2"
-                                value="Innovators,Knowledge Hunters,Competitive Coders,Social Coders"> Open to
-                            anything</label>
-                        <label class="option-label"><input type="radio" name="q2" value="Social Coders"> Attending with
-                            friends</label>
+                        <label class="option-label">
+                            <input type="radio" name="q2" value="Innovators,Knowledge Hunters">
+                            I go by myself
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q2" value="Innovators,Knowledge Hunters,Competitive Coders,Social Coders">
+                            Open to anything
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q2" value="Social Coders">
+                            Attending with friends
+                        </label>
                     </div>
                 </div>
 
@@ -52,14 +274,18 @@
                 <div class="question-card">
                     <p class="question-text">3. How often do you attend tech events?</p>
                     <div class="options-container">
-                        <label class="option-label"><input type="radio" name="q3" value="Knowledge Hunters"> Never
-                            attended before</label>
-                        <label class="option-label"><input type="radio" name="q3"
-                                value="Innovators,Knowledge Hunters,Competitive Coders,Social Coders"> Attended in the
-                            last month</label>
-                        <label class="option-label"><input type="radio" name="q3"
-                                value="Innovators,Knowledge Hunters,Competitive Coders,Social Coders"> Attended in the
-                            last year</label>
+                        <label class="option-label">
+                            <input type="radio" name="q3" value="Knowledge Hunters">
+                            Never attended before
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q3" value="Innovators,Knowledge Hunters,Competitive Coders,Social Coders">
+                            Attended in the last month
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q3" value="Innovators,Knowledge Hunters,Competitive Coders,Social Coders">
+                            Attended in the last year
+                        </label>
                     </div>
                 </div>
 
@@ -67,14 +293,22 @@
                 <div class="question-card">
                     <p class="question-text">4. How does coding fit into your daily life?</p>
                     <div class="options-container">
-                        <label class="option-label"><input type="radio" name="q4"
-                                value="Knowledge Hunters,Social Coders"> Learning for fun</label>
-                        <label class="option-label"><input type="radio" name="q4"
-                                value="Innovators,Knowledge Hunters,Social Coders"> Part-time work/gigs</label>
-                        <label class="option-label"><input type="radio" name="q4" value="Innovators,Competitive Coders">
-                            It's my day job</label>
-                        <label class="option-label"><input type="radio" name="q4" value="Innovators,Competitive Coders">
-                            Coding is my 24/7 bae</label>
+                        <label class="option-label">
+                            <input type="radio" name="q4" value="Knowledge Hunters,Social Coders">
+                            Learning for fun
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q4" value="Innovators,Knowledge Hunters,Social Coders">
+                            Part-time work/gigs
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q4" value="Innovators,Competitive Coders">
+                            It's my day job
+                        </label>
+                        <label class="option-label">
+                            <input type="radio" name="q4" value="Innovators,Competitive Coders">
+                            Coding is my 24/7 bae
+                        </label>
                     </div>
                 </div>
 
@@ -125,7 +359,7 @@
         // Calculate scores based on selected answers
         document.querySelectorAll('input[type="radio"]:checked').forEach(option => {
             const question = option.name;
-            const answer = option.parentElement.innerText.trim(); // Get text of selected option
+            const answer = option.parentElement.innerText.trim();
 
             if (scoring[question]) {
                 const categories = scoring[question][answer];
@@ -175,4 +409,5 @@
     </script>
 </body>
 
+</html>
 </html>
